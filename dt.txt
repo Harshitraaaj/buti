@@ -2,6 +2,8 @@ mvn archetype:generate -DgroupId=com.example -DartifactId=myproject -DarchetypeA
 
 ..........................
 
+ansible-playbook -i inventory playbook.yml
+
 p7:
 
 - name: Experiment 7 - Run Task on Localhost
