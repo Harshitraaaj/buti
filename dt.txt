@@ -1,0 +1,54 @@
+mvn archetype:generate -DgroupId=com.example -DartifactId=myproject -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false 
+
+..........................
+
+p7:
+
+- name: Experiment 7 - Run Task on Localhost
+  hosts: local
+
+  tasks:
+    - name: Print Hello
+      debug:
+        msg: "Hello from Ansible on Windows via WSL!"
+
+p8:
+
+build:
+ 			 <build> 
+                              <plugins> 
+                              <plugin> 
+                              <artifactId>maven-jar-plugin</artifactId> 
+                              <version>3.1.0</version> 
+                              <configuration> 
+                                     <archive> 
+                                     <manifest> 
+                                             <addClasspath>true</addClasspath> 
+                                             <mainClass>com.example.App</mainClass>  
+                                    </manifest> 
+                                   </archive> 
+                             </configuration> 
+                           </plugin> 
+                         </plugins> 
+                         </build> 
+deploy.yml 
+
+- name: Deploy JAR
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Copy JAR file
+      copy:
+        src: /mnt/c/Users/kingo/prog10/target/prog10-1.0-SNAPSHOT.jar
+        dest: /home/harshitraaaj/ansible-lab/app.jar
+        mode: '0755'
+
+    - name: Run JAR file
+      shell: nohup  java -jar /home/harshitraaaj/ansible-lab/app.jar > app.log 2>&1 &
+
+
+
+
+
+
